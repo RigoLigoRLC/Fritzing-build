@@ -1,0 +1,12 @@
+**/*.obj
+**/*.exe
+**/*.dll
+**/*.lib
+Clipper/build
+Clipper1-6.4.2/*
+FRITZING_DEPLOY*
+fritzing-app/.git_
+fritzing-parts/
+libgit2/build64
+quazip-1.4/build
+quazip-6.8.0-1.4/*

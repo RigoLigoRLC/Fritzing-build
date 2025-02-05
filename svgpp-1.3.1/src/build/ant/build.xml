@@ -1,0 +1,58 @@
+<project default="compile" basedir="..">
+
+  <property name="build_dir" location="_build"/>
+  <property name="configuration" value="Release"/>
+  <property name="src_dir" location=".."/>
+  <property name="unittest_results_dir" location="test-reports"/>
+  <property name="render_test_source_dir" location="../../test/SVGTestSuite/svg"/>
+  <property name="render_test_results_dir" location="render-reports"/>
+
+  <target name="init">
+    <mkdir dir="${build_dir}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build_dir}"/>
+  </target>
+  
+  <target name="run_cmake" depends="init">
+    <exec executable="cmake" dir="${build_dir}" failonerror="true">
+      <arg line="-DCMAKE_BUILD_TYPE=${configuration} ${src_dir}"/>
+    </exec>
+  </target>
+    
+  <target name="compile" depends="run_cmake">
+    <exec executable="/usr/bin/time" dir="${build_dir}" failonerror="true">
+      <arg line="-v make"/>
+    </exec>
+  </target>
+  
+  <target name="unittests" depends="run_cmake">
+    <exec executable="make" dir="${build_dir}" failonerror="true">
+      <arg line="ParserGTest"/>
+    </exec>
+    <delete dir="${unittest_results_dir}"/>
+    <exec executable="${build_dir}/bin/ParserGTest" failonerror="false" taskname="unittests">
+      <env key="GTEST_OUTPUT" value="xml:${unittest_results_dir}/"/>
+    </exec>
+  </target>
+
+  <target name="create_images" depends="run_cmake">
+    <exec executable="make" dir="${build_dir}" failonerror="true">
+      <arg line="svgpp_agg_render"/>
+    </exec>
+    <delete dir="${render_test_results_dir}"/>
+    <mkdir dir="${render_test_results_dir}"/>
+    <apply executable="${build_dir}/bin/svgpp_agg_render" dest="${render_test_results_dir}" failonerror="false" force="true" taskname="render">
+      <srcfile/>
+      <targetfile/>
+      <fileset dir="${render_test_source_dir}" includes="*.svg"/>
+      <mapper type="glob" from="*.svg" to="*.png"/>
+    </apply>
+    <tar destfile="render-report.tar" basedir="${render_test_results_dir}"/>
+  </target>
+  
+  <target name="rebuild" depends="clean, unittests, create_images, compile">
+  </target>
+
+</project>

@@ -1,0 +1,66 @@
+# Temporary build files
+.qmake.cache
+.qmake.stash
+
+Makefile*
+
+phoenix.pro.user
+/phoenix-build-*
+/release*
+/build*
+/debug*
+*.user
+*.user*
+
+# Visual Studio files
+*.sdf
+*.opensdf
+*.sln
+*.vcxproj
+*.vcxproj.*
+
+# Compiled source
+*.pyc
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.suo
+*.pdb
+
+# Temporary files
+*.py~
+*.xml~
+
+# Vim temporary files
+*.swp
+*.swo
+
+/fritzing-parts/
+
+# Packages and archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.bash_history
+saved_state
+*.qm
+index
+/.qtc_clangd/compile_commands.json
