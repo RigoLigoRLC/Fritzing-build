@@ -2,6 +2,7 @@
 **/*.exe
 **/*.dll
 **/*.lib
+**/*.pdb
 Clipper/build
 Clipper1-6.4.2/*
 FRITZING_DEPLOY*
